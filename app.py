@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 api_key_google = "AIzaSyDQSTmWlMkGUTTKhjsdU4SIKw02zKyG9Cg"
 genai.configure(api_key=api_key_google)
-model = genai.GenerativeModel("gemini-1.5-pro-latest")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 @app.route('/<nome_do_anime>')
