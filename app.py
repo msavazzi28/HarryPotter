@@ -9,13 +9,19 @@ genai.configure(api_key=api_key_google)
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
+def format_text(text):
+    # Replace occurrences of '*' with a newline followed by '*'
+    formatted_text = text.replace('*', '\n*')
+    return formatted_text
+
 @app.route('/<nome_do_anime>')
 def index(nome_do_anime):
     try:
-        prompt = f"Me faça um resumo de 200 palavras do personagem {nome_do_anime} do Harry Potter"
+        prompt = f"Me faça um resumo do personagem {nome_do_anime} do Harry Potter, colocando magias usadas nos livros, tipo de patrono, e a casa que ele pertence"
         response = model.generate_content(prompt)
         time.sleep(1)
-        return response.text
+        formatted_response = format_text(response.text)
+        return formatted_response
     except Exception as e:
         app.logger.error(f"Erro ao processar a solicitação para {nome_do_anime}: {e}")
         return jsonify({"error": "Ocorreu um erro ao processar sua solicitação."}), 500
