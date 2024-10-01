@@ -11,10 +11,15 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 @app.route('/<nome_do_anime>')
 def index(nome_do_anime):
-    prompt = f"Me faça um resumo de 200 palavras do personagem {nome_do_anime} do Harry Potter"
-    response = model.generate_content(prompt)
-    time.sleep(1)
-    return response.text
+    try:
+        prompt = f"Me faça um resumo de 200 palavras do personagem {nome_do_anime} do Harry Potter"
+        response = model.generate_content(prompt)
+        time.sleep(1)
+        return response.text
+    except Exception as e:
+        app.logger.error(f"Erro ao processar a solicitação para {nome_do_anime}: {e}")
+        return jsonify({"error": "Ocorreu um erro ao processar sua solicitação."}), 500
+
 
 
 if __name__ == '__main__':
