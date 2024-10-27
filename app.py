@@ -17,7 +17,7 @@ def format_text(text):
 @app.route('/<nome_do_anime>')
 def index(nome_do_anime):
     try:
-        prompt = f"Me faça um resumo do personagem {nome_do_anime} do Harry Potter, colocando magias usadas nos livros, tipo de patrono, e a casa que ele pertence"
+        prompt = f"Me faça um resumo do personagem {nome_do_anime} do Harry Potter em no maximo 400 palavras."
         response = model.generate_content(prompt)
         time.sleep(1)
         formatted_response = format_text(response.text)
